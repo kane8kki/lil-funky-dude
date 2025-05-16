@@ -1,196 +1,230 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nintendo 3DS – Internet Settings</title>
-<style>
-    /* ----- RESET ----- */
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;}
-
-    body{
-        font-family:"Helvetica Neue",Arial,sans-serif;
-        background:#f1e6a4; /* light yellow‑beige like on the 3DS */
-        display:flex;
-        justify-content:center;
-        align-items:flex-start;
-        padding:2rem 0;
-        user-select:none;
-    }
-
-    /* ----- CONTAINER ----- */
-    .console-ui{
-        width:640px; /* scaled to desktop but keep 3DS proportions */
-        position:relative;
-    }
-
-    /* ----- TOP BAR ----- */
-    .title-bar{
-        width:100%;
-        background:#5ca0c9; /* blue header */
-        border-radius:36px;
-        padding:3rem 1rem 2.5rem;
-        text-align:center;
-        color:#fff;
-        font-size:3rem;
-        font-weight:600;
-        box-shadow:inset 0 0 5px rgba(0,0,0,.4);
-    }
-    .title-bar span{display:block;}
-
-    /* ----- MENU ITEMS ----- */
-    .menu{
-        margin-top:2.5rem;
-        display:flex;
-        flex-direction:column;
-        gap:1.7rem;
-    }
-    .menu button{
-        background:#f3f3ec;
-        border:none;
-        border-radius:20px;
-        font-size:2.5rem;
-        padding:1.2rem 1rem;
-        color:#7d7d6f;
-        box-shadow:inset 0 0 4px rgba(0,0,0,.25);
-        cursor:pointer;
-        transition:filter .15s;    }
-    .menu button:hover{filter:brightness(1.05);}    
-
-    /* ----- BACK BUTTON ----- */
-    .back-btn{
-        position:absolute;
-        bottom:2rem;
-        left:0;
-        background:#7c7c7c;
-        color:#fff;
-        border:none;
-        font-size:2.8rem;
-        border-top-right-radius:40px;
-        border-bottom-right-radius:40px;
-        padding:1.2rem 2.7rem 1.2rem 2rem;
-        box-shadow:inset 0 0 5px rgba(0,0,0,.3);
-        cursor:pointer;
-    }
-
-    /* ----- FUNKY DUDE ----- */
-    .funky-wrapper{
-        position:absolute;
-        bottom:1rem;
-        left:50%;
-        transform:translateX(-50%);
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        pointer-events:none; /* ignore mouse */
-    }
-
-    .head{
-        width:70px;
-        height:60px;
-        background:#fff;
-        border:4px solid #000;
-        border-radius:6px;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        position:relative;
-        transform-origin:50% 90%; /* pivot for bobbing */
-    }
-    .head::before,.head::after{
-        content:"";
-        position:absolute;
-        top:45%;
-        width:8px; height:8px;
-        background:#000;
-        border-radius:50%;
-    }
-    .head::before{left:20px;} /* left eye */
-    .head::after{right:20px;} /* right eye */
-
-    .mouth{
-        position:absolute;
-        bottom:12px;
-        left:50%;
-        width:26px;
-        height:6px;
-        background:#000;
-        transform:translateX(-50%);
-    }
-
-    .body{
-        width:16px;
-        height:38px;
-        background:#fff;
-        border:4px solid #000;
-        border-top:none;
-        border-radius:0 0 6px 6px;
-    }
-
-    /* ----- HEAD BOB ANIMATION ----- */
-    @keyframes headbob{
-        0%   {transform:rotate(-12deg);}
-        50%  {transform:rotate(12deg);}    
-        100% {transform:rotate(-12deg);}    
-    }
-
-    .play .head{
-        animation:headbob 0.462s linear infinite;
-    }
-
-    /* --- TEXT SIZES RESPONSIVE --- */
-    @media(max-width:700px){
-        .console-ui{transform:scale(.8);}
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nintendo 3DS Internet Settings</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 400px;
+            height: 480px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .top-bar {
+            height: 40px;
+            background-color: #e60012;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .menu {
+            padding: 20px;
+        }
+        
+        .menu-item {
+            padding: 15px 10px;
+            font-size: 18px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .mii {
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .mii-head {
+            width: 40px;
+            height: 40px;
+            background-color: #ffdbac;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+        
+        .mii-hair {
+            width: 44px;
+            height: 20px;
+            background-color: #654321;
+            border-radius: 20px 20px 0 0;
+            position: absolute;
+            top: 0;
+            left: 3px;
+        }
+        
+        .mii-eye {
+            width: 8px;
+            height: 8px;
+            background-color: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+        }
+        
+        .mii-eye.left {
+            left: 12px;
+        }
+        
+        .mii-eye.right {
+            right: 12px;
+        }
+        
+        .mii-mouth {
+            width: 16px;
+            height: 4px;
+            background-color: #000;
+            border-radius: 2px;
+            position: absolute;
+            bottom: 10px;
+            left: 12px;
+        }
+        
+        .audio-control {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-    <audio id="bgm" src="Nintendo 3DS Internet Settings Theme (High Quality, 2022 Remastered).mp3" preload="auto" loop></audio>
-
-    <div class="console-ui" id="ui">
-        <div class="title-bar">
-            <span>Nintendo 3DS</span>
-            <span>Internet Settings</span>
-        </div>
-
+    <div class="container">
+        <div class="top-bar">Nintendo 3DS</div>
         <div class="menu">
-            <button disabled>SpotPass</button>
-            <button disabled>Nintendo DS Connections</button>
-            <button disabled>Other Information</button>
+            <div class="menu-item">Internet Settings</div>
+            <div class="menu-item">SpotPass</div>
+            <div class="menu-item">Nintendo DS Connections</div>
+            <div class="menu-item">Other Information</div>
+            <div class="menu-item">Back</div>
         </div>
-
-        <button class="back-btn">Back</button>
-
-        <div class="funky-wrapper" aria-hidden="true">
-            <div class="head" id="head">
-                <div class="mouth"></div>
+        <div class="footer">
+            <div class="footer-text"></div>
+            <div class="mii">
+                <div class="mii-hair"></div>
+                <div class="mii-head">
+                    <div class="mii-eye left"></div>
+                    <div class="mii-eye right"></div>
+                    <div class="mii-mouth"></div>
+                </div>
             </div>
-            <div class="body"></div>
         </div>
+        <button class="audio-control" title="Toggle sound">🔊</button>
+        
+        <audio id="bgMusic" loop>
+            <source src="Nintendo 3DS Internet Settings Theme (High Quality, 2022 Remastered).mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 
-<script>
-// --- Synchronise audio with animation ---
-(function(){
-    const audio = document.getElementById('bgm');
-    const ui = document.getElementById('ui');
-
-    // Because most browsers block autoplay with sound, require first pointer event
-    const kickOff = () => {
-        audio.play().catch(()=>{}); // attempt play
-        ui.classList.add('play');   // start animation regardless
-        window.removeEventListener('pointerdown', kickOff);
-    };
-
-    window.addEventListener('pointerdown', kickOff, {once:true});
-
-    // also allow keyboard (space / enter) for accessibility
-    window.addEventListener('keydown', (e)=>{
-        if([' ','Enter'].includes(e.key)) kickOff();
-    }, {once:true});
-})();
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const miiHead = document.querySelector('.mii-head');
+            const audioControl = document.querySelector('.audio-control');
+            const bgMusic = document.getElementById('bgMusic');
+            
+            // Try to autoplay music (may be blocked by browser)
+            bgMusic.volume = 0.3;
+            const playPromise = bgMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Autoplay was prevented, will require user interaction");
+                    audioControl.textContent = "🔇";
+                });
+            }
+            
+            // Toggle music on button click
+            audioControl.addEventListener('click', function() {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    audioControl.textContent = "🔊";
+                } else {
+                    bgMusic.pause();
+                    audioControl.textContent = "🔇";
+                }
+            });
+            
+            // Dancing animation at 130 BPM (130 beats per minute = 2.1667 beats per second)
+            // We'll animate on every beat (every 461.5ms)
+            setInterval(function() {
+                // Head bob animation
+                miiHead.style.transform = 'translateY(-5px)';
+                setTimeout(function() {
+                    miiHead.style.transform = 'translateY(0)';
+                }, 100);
+                
+                // Small eye blink
+                const eyes = document.querySelectorAll('.mii-eye');
+                eyes.forEach(eye => {
+                    eye.style.height = '2px';
+                    setTimeout(function() {
+                        eye.style.height = '8px';
+                    }, 50);
+                });
+                
+                // Mouth animation
+                const mouth = document.querySelector('.mii-mouth');
+                mouth.style.height = '6px';
+                mouth.style.borderRadius = '3px';
+                setTimeout(function() {
+                    mouth.style.height = '4px';
+                    mouth.style.borderRadius = '2px';
+                }, 100);
+                
+            }, 461.5); // 60000ms / 130bpm = 461.5ms per beat
+        });
+    </script>
 </body>
 </html>
