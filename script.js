@@ -3,7 +3,7 @@ const music = document.getElementById('bg-music');
 
 let direction = 1;
 const bpm = 130;
-const interval = (60 / bpm) * 1000; // Duration per beat
+const interval = (60 / bpm) * 1000;
 
 function dance() {
   if (!music.paused) {
@@ -13,4 +13,4 @@ function dance() {
   }
 }
 
-setInterval(dance, interval / 2); // Twice per beat for a bouncy effect
+setInterval(dance, interval / 2); // Two moves per beat
