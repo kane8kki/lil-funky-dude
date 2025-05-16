@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nintendo 3DS – Internet Settings</title>
+<style>
+    /* ----- RESET ----- */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;}
+
+    body{
+        font-family:"Helvetica Neue",Arial,sans-serif;
+        background:#f1e6a4; /* light yellow‑beige like on the 3DS */
+        display:flex;
+        justify-content:center;
+        align-items:flex-start;
+        padding:2rem 0;
+        user-select:none;
+    }
+
+    /* ----- CONTAINER ----- */
+    .console-ui{
+        width:640px; /* scaled to desktop but keep 3DS proportions */
+        position:relative;
+    }
+
+    /* ----- TOP BAR ----- */
+    .title-bar{
+        width:100%;
+        background:#5ca0c9; /* blue header */
+        border-radius:36px;
+        padding:3rem 1rem 2.5rem;
+        text-align:center;
+        color:#fff;
+        font-size:3rem;
+        font-weight:600;
+        box-shadow:inset 0 0 5px rgba(0,0,0,.4);
+    }
+    .title-bar span{display:block;}
+
+    /* ----- MENU ITEMS ----- */
+    .menu{
+        margin-top:2.5rem;
+        display:flex;
+        flex-direction:column;
+        gap:1.7rem;
+    }
+    .menu button{
+        background:#f3f3ec;
+        border:none;
+        border-radius:20px;
+        font-size:2.5rem;
+        padding:1.2rem 1rem;
+        color:#7d7d6f;
+        box-shadow:inset 0 0 4px rgba(0,0,0,.25);
+        cursor:pointer;
+        transition:filter .15s;    }
+    .menu button:hover{filter:brightness(1.05);}    
+
+    /* ----- BACK BUTTON ----- */
+    .back-btn{
+        position:absolute;
+        bottom:2rem;
+        left:0;
+        background:#7c7c7c;
+        color:#fff;
+        border:none;
+        font-size:2.8rem;
+        border-top-right-radius:40px;
+        border-bottom-right-radius:40px;
+        padding:1.2rem 2.7rem 1.2rem 2rem;
+        box-shadow:inset 0 0 5px rgba(0,0,0,.3);
+        cursor:pointer;
+    }
+
+    /* ----- FUNKY DUDE ----- */
+    .funky-wrapper{
+        position:absolute;
+        bottom:1rem;
+        left:50%;
+        transform:translateX(-50%);
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        pointer-events:none; /* ignore mouse */
+    }
+
+    .head{
+        width:70px;
+        height:60px;
+        background:#fff;
+        border:4px solid #000;
+        border-radius:6px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        position:relative;
+        transform-origin:50% 90%; /* pivot for bobbing */
+    }
+    .head::before,.head::after{
+        content:"";
+        position:absolute;
+        top:45%;
+        width:8px; height:8px;
+        background:#000;
+        border-radius:50%;
+    }
+    .head::before{left:20px;} /* left eye */
+    .head::after{right:20px;} /* right eye */
+
+    .mouth{
+        position:absolute;
+        bottom:12px;
+        left:50%;
+        width:26px;
+        height:6px;
+        background:#000;
+        transform:translateX(-50%);
+    }
+
+    .body{
+        width:16px;
+        height:38px;
+        background:#fff;
+        border:4px solid #000;
+        border-top:none;
+        border-radius:0 0 6px 6px;
+    }
+
+    /* ----- HEAD BOB ANIMATION ----- */
+    @keyframes headbob{
+        0%   {transform:rotate(-12deg);}
+        50%  {transform:rotate(12deg);}    
+        100% {transform:rotate(-12deg);}    
+    }
+
+    .play .head{
+        animation:headbob 0.462s linear infinite;
+    }
+
+    /* --- TEXT SIZES RESPONSIVE --- */
+    @media(max-width:700px){
+        .console-ui{transform:scale(.8);}
+    }
+</style>
+</head>
+<body>
+    <audio id="bgm" src="Nintendo 3DS Internet Settings Theme (High Quality, 2022 Remastered).mp3" preload="auto" loop></audio>
+
+    <div class="console-ui" id="ui">
+        <div class="title-bar">
+            <span>Nintendo 3DS</span>
+            <span>Internet Settings</span>
+        </div>
+
+        <div class="menu">
+            <button disabled>SpotPass</button>
+            <button disabled>Nintendo DS Connections</button>
+            <button disabled>Other Information</button>
+        </div>
+
+        <button class="back-btn">Back</button>
+
+        <div class="funky-wrapper" aria-hidden="true">
+            <div class="head" id="head">
+                <div class="mouth"></div>
+            </div>
+            <div class="body"></div>
+        </div>
+    </div>
+
+<script>
+// --- Synchronise audio with animation ---
+(function(){
+    const audio = document.getElementById('bgm');
+    const ui = document.getElementById('ui');
+
+    // Because most browsers block autoplay with sound, require first pointer event
+    const kickOff = () => {
+        audio.play().catch(()=>{}); // attempt play
+        ui.classList.add('play');   // start animation regardless
+        window.removeEventListener('pointerdown', kickOff);
+    };
+
+    window.addEventListener('pointerdown', kickOff, {once:true});
+
+    // also allow keyboard (space / enter) for accessibility
+    window.addEventListener('keydown', (e)=>{
+        if([' ','Enter'].includes(e.key)) kickOff();
+    }, {once:true});
+})();
+</script>
+</body>
+</html>
