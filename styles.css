@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  background-color: #f0de84;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  position: relative;
+  width: 512px;
+  height: 384px;
+}
+
+.title-btn {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  margin: 8px auto;
+}
+
+.back-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+}
+
+.funky-dude {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dude-body {
+  position: relative;
+  z-index: 1;
+}
+
+.dude-head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  transition: transform 0.1s ease-in-out;
+}
